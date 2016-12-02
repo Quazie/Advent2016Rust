@@ -36,36 +36,20 @@ fn main() {
       let (x_dif, y_dif) = dir_info[idx as usize];
       let x_change = (x_dif * amount);
       let y_change = (y_dif * amount);
-      if x_dif != 0 {
-        for i in 0..amount {
-          x = x + x_dif;
-          let point = (x,y);
-          if points.contains(&point) {
-            if !intersect_found {
-              println!("INTERSECTION x:{} y:{} total:{}", x, y, x.abs() + y.abs());
-            }
-
-            intersect_found = true
-          } else {
-            points.insert(point);
+      for i in 0..amount {
+        x = x + x_dif;
+        y = y + y_dif;
+        let point = (x,y);
+        if points.contains(&point) {
+          if !intersect_found {
+            println!("INTERSECTION x:{} y:{} total:{}", x, y, x.abs() + y.abs());
           }
-        }
-      } else {
 
-        for i in 0..amount {
-          y = y + y_dif;
-          let point = (x,y);
-          if points.contains(&point) {
-            if !intersect_found {
-              println!("INTERSECTION x:{} y:{} total:{}", x, y, x.abs() + y.abs());
-            }
-            intersect_found = true
-          } else {
-            points.insert(point);
-          }
+          intersect_found = true
+        } else {
+          points.insert(point);
         }
       }
-
     }
     println!("x:{} y:{} total:{}", x, y, x.abs() + y.abs());
 }
