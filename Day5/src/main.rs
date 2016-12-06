@@ -1,6 +1,3 @@
-use std::io::prelude::*;
-use std::fs::File;
-use std::collections::HashSet;
 extern crate crypto;
 
 use crypto::md5::Md5;
