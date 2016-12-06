@@ -1,0 +1,7 @@
+[package]
+name = "day5"
+version = "0.1.0"
+authors = ["Quazie Kwaselow <Quazie@dropbox.com>"]
+
+[dependencies]
+rust-crypto = "^0.2"
