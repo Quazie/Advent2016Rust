@@ -19,12 +19,15 @@ fn main() {
     for dir in dirs {
       let (rl, amount_str) = dir.split_at(1);
       let amount = amount_str.parse::<i32>().unwrap();
-      if rl == "R" {
-        idx = idx + 1;
-      } else {
-        idx = idx - 1;
+
+      match rl {
+        "R" => idx = idx + 1,
+        "L" => idx = idx - 1,
+        _ => panic!("OMG"),
       }
+
       idx = ((idx % 4) + 4 ) % 4;
+
       let (x_dif, y_dif) = dir_info[idx as usize];
       for _ in 0..amount {
         x = x + x_dif;
