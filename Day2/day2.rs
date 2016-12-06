@@ -10,6 +10,20 @@ use std::fs::File;
 use std::collections::HashSet;
 use std::cmp;
 
+fn move_dir(dir: char, move_info: &[i32], pos: (i32, i32), base: i32) -> (i32, i32) {
+  let (mut x, mut y) = pos;
+
+  match(dir) {
+    'U' => y = cmp::max(base - move_info[x as usize], y-1),
+    'D' => y = cmp::min(base + move_info[x as usize], y + 1),
+    'L' => x = cmp::max(base - move_info[y as usize], x-1),
+    'R' => x = cmp::min(base + move_info[y as usize], x + 1),
+    _ => panic!("OMG"),
+  }
+
+  (x, y)
+}
+
 // This is the main function
 fn main() {
 
@@ -19,50 +33,23 @@ fn main() {
     let lines = s.split("\n");
     let min = 0;
     let max = 2;
-    let mut pos = (1, 1);
-    println!("Answer 1");
+    let size_info1: [i32; 3] = [1, 1, 1];
+    let mut pos1 = (1, 1);
+    let mut pos2 = (2, 2);
+    let size_info2: [i32; 5] = [0,1,2,1,0];
+    let mut ans1 = String::new();
+    let mut ans2 = String::new();
     for line in lines {
       for ch in line.chars() {
-        let (mut x, mut y) = pos;
-        if ch == 'U' {
-          y = cmp::max(0, y-1);
-
-        } else if ch == 'D' {
-          y = cmp::min(2, y + 1);
-        } else if ch == 'L' {
-          x = cmp::max(0, x-1);
-        } else if ch == 'R' {
-          x = cmp::min(2, x + 1);
-
-        }
-        pos = (x, y);
+        pos1 = move_dir(ch, &size_info1[..], pos1, 1);
+        pos2 = move_dir(ch, &size_info2[..], pos2, 2);
       }
-      let (x, y) = pos;
+
+      let (x, y) = pos1;
       let number = 1 + x + 3 * y;
-      println!("{:?}", number);
-    }
+      ans1 += &format!("{}",number);
 
-    println!("Answer 2");
-    let mut pos = (2, 2);
-    let size_info: [i32; 5] = [0,1,2,1,0];
-    let lines = s.split("\n");
-    for line in lines {
-      for ch in line.chars() {
-        let (mut x, mut y) = pos;
-        if ch == 'U' {
-          y = cmp::max(2 - size_info[x as usize], y-1);
-
-        } else if ch == 'D' {
-          y = cmp::min(2 + size_info[x as usize], y + 1);
-        } else if ch == 'L' {
-          x = cmp::max(2 - size_info[y as usize], x-1);
-        } else if ch == 'R' {
-          x = cmp::min(2 + size_info[y as usize], x + 1);
-
-        }
-        pos = (x, y);
-      }
-      let (x, y) = pos;
+      let (x, y) = pos2;
       let mut number = 0;
       if y == 0 {
         number = 1;
@@ -75,6 +62,8 @@ fn main() {
       } else {
         number = 13
       }
-      println!("{:x}", number);
+      ans2 += &format!("{:x}", number);
     }
+    println!("Bathroom Code 1: {}", ans1);
+    println!("Bathroom Code 2: {}", ans2);
 }
