@@ -23,39 +23,39 @@ fn is_valid(triange: &Vec<i32>) -> bool{
 
 fn main() {
 
-    let mut f = File::open("day3.txt").unwrap();
-    let mut s = String::new();
-    f.read_to_string(&mut s).unwrap();
-    let lines = s.lines();
+  let mut f = File::open("day3.txt").unwrap();
+  let mut s = String::new();
+  f.read_to_string(&mut s).unwrap();
+  let lines = s.lines();
 
-    let mut row_count = 0;
-    let mut col_count = 0;
-    let mut rows = Vec::new();
-    for _ in 0..3 {
-      rows.push(Vec::new())
+  let mut row_count = 0;
+  let mut col_count = 0;
+  let mut rows = Vec::new();
+  for _ in 0..3 {
+    rows.push(Vec::new())
+  }
+  for line in lines {
+    let nums: Vec<i32> = line.split(' ').map(|s| s.trim())
+      .filter(|s| !s.is_empty())
+      .map(|s| s.parse().unwrap())
+      .collect();
+
+    if is_valid(&nums) {
+      row_count += 1;
     }
-    for line in lines {
-      let nums: Vec<i32> = line.split(' ').map(|s| s.trim())     // (2)
-              .filter(|s| !s.is_empty())        // (3)
-              .map(|s| s.parse().unwrap())      // (4)
-              .collect();
+    for i in 0..3 {
+      rows[i].push(nums[i])
+    }
 
-      if is_valid(&nums) {
-        row_count += 1;
-      }
+    if rows[0].len() == 3{
       for i in 0..3 {
-        rows[i].push(nums[i])
-      }
-
-      if rows[0].len() == 3{
-        for i in 0..3 {
-          if is_valid(&rows[i]) {
-            col_count += 1;
-          }
-          rows[i].clear();
+        if is_valid(&rows[i]) {
+          col_count += 1;
         }
+        rows[i].clear();
       }
     }
-    println!("Num valid by row {:?}", row_count);
-    println!("Num valid by col {:?}", col_count);
+  }
+  println!("Num valid by row {:?}", row_count);
+  println!("Num valid by col {:?}", col_count);
 }

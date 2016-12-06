@@ -36,33 +36,33 @@ fn num_2(x: i32, y: i32) -> i32 {
 
 fn main() {
 
-    let mut f = File::open("day2.txt").unwrap();
-    let mut s = String::new();
-    f.read_to_string(&mut s).unwrap();
-    let lines = s.split("\n");
+  let mut f = File::open("day2.txt").unwrap();
+  let mut s = String::new();
+  f.read_to_string(&mut s).unwrap();
+  let lines = s.split("\n");
 
-    let size_info1: [i32; 3] = [1, 1, 1];
-    let mut pos1 = (1, 1);
-    let mut ans1 = String::new();
+  let size_info1: [i32; 3] = [1, 1, 1];
+  let mut pos1 = (1, 1);
+  let mut ans1 = String::new();
 
-    let size_info2: [i32; 5] = [0,1,2,1,0];
-    let mut pos2 = (2, 2);
-    let mut ans2 = String::new();
+  let size_info2: [i32; 5] = [0,1,2,1,0];
+  let mut pos2 = (2, 2);
+  let mut ans2 = String::new();
 
-    for line in lines {
-      for ch in line.chars() {
-        pos1 = move_dir(ch, &size_info1[..], pos1, 1);
-        pos2 = move_dir(ch, &size_info2[..], pos2, 2);
-      }
-
-      let (x, y) = pos1;
-
-      ans1 += &format!("{}", num_1(x, y));
-
-      let (x, y) = pos2;
-
-      ans2 += &format!("{:x}", num_2(x, y));
+  for line in lines {
+    for ch in line.chars() {
+      pos1 = move_dir(ch, &size_info1[..], pos1, 1);
+      pos2 = move_dir(ch, &size_info2[..], pos2, 2);
     }
-    println!("Bathroom Code 1: {}", ans1);
-    println!("Bathroom Code 2: {}", ans2);
+
+    let (x, y) = pos1;
+
+    ans1 += &format!("{}", num_1(x, y));
+
+    let (x, y) = pos2;
+
+    ans2 += &format!("{:x}", num_2(x, y));
+  }
+  println!("Bathroom Code 1: {}", ans1);
+  println!("Bathroom Code 2: {}", ans2);
 }
