@@ -36,7 +36,6 @@ fn main() {
         } else if is_checksum {
           checksum += &format!("{}",ch);
         } else {
-          // This is real now - lets do it
           to_test += &format!("{}",ch);
         }
       }
@@ -47,15 +46,17 @@ fn main() {
       let mut count_vec: Vec<(&char, &u32)> = count.iter().collect();
       count_vec.sort_by(|a, b| if (b.1.cmp(a.1) == Ordering::Equal){ a.0.cmp(b.0) }else{ b.1.cmp(a.1)});
       let mut checksum_test = String::new();
-      checksum_test += &format!("{}",count_vec[0].0);
-      checksum_test += &format!("{}",count_vec[1].0);
-      checksum_test += &format!("{}",count_vec[2].0);
-      checksum_test += &format!("{}",count_vec[3].0);
-      checksum_test += &format!("{}",count_vec[4].0);
+      for i in 0..5 {
+        checksum_test += &format!("{}",count_vec[i].0);
+      }
 
       if checksum_test == checksum {
         let sector_num = str_id.parse().unwrap();
+
+        // update the count for part 1
         amount += sector_num;
+
+        // generate part 2 output
         let mut to_print = String::new();
         for c in to_test.chars() {
           let mut index:i32 = ascii_vec.iter().position(|&r| r == c).unwrap() as i32;
@@ -63,9 +64,11 @@ fn main() {
           index = index % 26;
           to_print += &format!("{}",ascii_vec[index as usize]);
         }
+
         if to_print == "northpoleobjectstorage" {
           println!("North Pole Objects in sector: {}", sector_num);
         }
+
       }
     }
     println!("The sum of all valid room sectors is: {:?}",amount );

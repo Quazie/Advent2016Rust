@@ -24,6 +24,24 @@ fn move_dir(dir: char, move_info: &[i32], pos: (i32, i32), base: i32) -> (i32, i
   (x, y)
 }
 
+fn num_1(x: i32, y: i32) -> i32 {
+  1 + x + 3 * y
+}
+
+fn num_2(x: i32, y: i32) -> i32 {
+  if y == 0 {
+    return 1;
+  } else if y == 1 {
+    return 1 + x;
+  } else if y == 2 {
+    return 5 + x;
+  } else if y == 3 {
+    return 9 + x
+  }
+  return 13
+
+}
+
 // This is the main function
 fn main() {
 
@@ -31,14 +49,15 @@ fn main() {
     let mut s = String::new();
     f.read_to_string(&mut s);
     let lines = s.split("\n");
-    let min = 0;
-    let max = 2;
+
     let size_info1: [i32; 3] = [1, 1, 1];
     let mut pos1 = (1, 1);
-    let mut pos2 = (2, 2);
-    let size_info2: [i32; 5] = [0,1,2,1,0];
     let mut ans1 = String::new();
+
+    let size_info2: [i32; 5] = [0,1,2,1,0];
+    let mut pos2 = (2, 2);
     let mut ans2 = String::new();
+
     for line in lines {
       for ch in line.chars() {
         pos1 = move_dir(ch, &size_info1[..], pos1, 1);
@@ -46,23 +65,12 @@ fn main() {
       }
 
       let (x, y) = pos1;
-      let number = 1 + x + 3 * y;
-      ans1 += &format!("{}",number);
+
+      ans1 += &format!("{}", num_1(x, y));
 
       let (x, y) = pos2;
-      let mut number = 0;
-      if y == 0 {
-        number = 1;
-      } else if y == 1 {
-        number = 1 + x
-      } else if y == 2 {
-        number = 5 + x
-      } else if y == 3 {
-        number = 9 + x
-      } else {
-        number = 13
-      }
-      ans2 += &format!("{:x}", number);
+
+      ans2 += &format!("{:x}", num_2(x, y));
     }
     println!("Bathroom Code 1: {}", ans1);
     println!("Bathroom Code 2: {}", ans2);
