@@ -7,9 +7,7 @@
 
 use std::io::prelude::*;
 use std::fs::File;
-use std::collections::HashSet;
 use std::collections::btree_map::BTreeMap;
-use std::cmp::Ordering;
 
 fn get_first_and_last(map: &BTreeMap<char, i32>) -> (char, char) {
   let mut count_vec: Vec<(&char, &i32)> = map.iter().collect();
@@ -23,17 +21,16 @@ fn main() {
 
     let mut f = File::open("day6.txt").unwrap();
     let mut s = String::new();
-    f.read_to_string(&mut s);
+    f.read_to_string(&mut s).unwrap();
     let lines = s.lines();
 
     let mut map_vec = Vec::new();
-    for i in 0..8 {
+    for _ in 0..8 {
       map_vec.push(BTreeMap::new())
     }
 
     for l in lines {
-      let mut line = String::new();
-      line = format!("{}", l);
+      let mut line = format!("{}", l);
       for i in 0..8 {
         let j = 7 - i;
         *map_vec[j].entry(line.pop().unwrap()).or_insert(0) += 1;
@@ -43,9 +40,8 @@ fn main() {
 
     let mut first = String::new();
     let mut last = String::new();
-    let mut f_l = (' ', ' ');
     for i in 0..8 {
-      f_l = get_first_and_last(&map_vec[i]);
+      let f_l = get_first_and_last(&map_vec[i]);
       first += &format!("{}", f_l.0);
       last += &format!("{}", f_l.1);
     }

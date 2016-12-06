@@ -7,7 +7,6 @@
 
 use std::io::prelude::*;
 use std::fs::File;
-use std::collections::HashSet;
 use std::collections::btree_map::BTreeMap;
 use std::cmp::Ordering;
 
@@ -16,8 +15,9 @@ fn main() {
 
     let mut f = File::open("day4.txt").unwrap();
     let mut s = String::new();
-    f.read_to_string(&mut s);
+    f.read_to_string(&mut s).unwrap();
     let lines = s.lines();
+
     let mut amount:i32 = 0;
     let ascii_iter = (0..26).map(|x| (x + 'a' as u8) as char);
     let ascii_vec = ascii_iter.collect::<Vec<_>>();
@@ -44,7 +44,7 @@ fn main() {
           *count.entry(c).or_insert(0) += 1;
       }
       let mut count_vec: Vec<(&char, &u32)> = count.iter().collect();
-      count_vec.sort_by(|a, b| if (b.1.cmp(a.1) == Ordering::Equal){ a.0.cmp(b.0) }else{ b.1.cmp(a.1)});
+      count_vec.sort_by(|a, b| if b.1.cmp(a.1) == Ordering::Equal { a.0.cmp(b.0) }else{ b.1.cmp(a.1)});
       let mut checksum_test = String::new();
       for i in 0..5 {
         checksum_test += &format!("{}",count_vec[i].0);

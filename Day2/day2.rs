@@ -7,13 +7,12 @@
 
 use std::io::prelude::*;
 use std::fs::File;
-use std::collections::HashSet;
 use std::cmp;
 
 fn move_dir(dir: char, move_info: &[i32], pos: (i32, i32), base: i32) -> (i32, i32) {
   let (mut x, mut y) = pos;
 
-  match(dir) {
+  match dir {
     'U' => y = cmp::max(base - move_info[x as usize], y-1),
     'D' => y = cmp::min(base + move_info[x as usize], y + 1),
     'L' => x = cmp::max(base - move_info[y as usize], x-1),
@@ -47,7 +46,7 @@ fn main() {
 
     let mut f = File::open("day2.txt").unwrap();
     let mut s = String::new();
-    f.read_to_string(&mut s);
+    f.read_to_string(&mut s).unwrap();
     let lines = s.split("\n");
 
     let size_info1: [i32; 3] = [1, 1, 1];

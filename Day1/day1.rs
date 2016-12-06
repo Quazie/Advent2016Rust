@@ -14,7 +14,7 @@ fn main() {
 
     let mut f = File::open("day1.txt").unwrap();
     let mut s = String::new();
-    f.read_to_string(&mut s);
+    f.read_to_string(&mut s).unwrap();
     let dirs = s.split(", ");
 
     let dir_info: [(i32, i32); 4] = [(0,1), (1,0), (0, -1), (-1, 0)];
@@ -34,9 +34,7 @@ fn main() {
       }
       idx = ((idx % 4) + 4 ) % 4;
       let (x_dif, y_dif) = dir_info[idx as usize];
-      let x_change = (x_dif * amount);
-      let y_change = (y_dif * amount);
-      for i in 0..amount {
+      for _ in 0..amount {
         x = x + x_dif;
         y = y + y_dif;
         let point = (x,y);
