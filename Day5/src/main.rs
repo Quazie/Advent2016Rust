@@ -25,7 +25,7 @@ fn main() {
       }
       if index < 8  && password2[index as usize] == ' '{
         password2[index as usize] = char7;
-        println!("Password 2 is: {:?}", password2);
+        println!("Password 2 is: {:?}", password2.iter().cloned().collect::<String>());
       }
       let mut done = true;
       for j in 0..8 {
@@ -43,5 +43,5 @@ fn main() {
   }
 
   println!("Password 1 is: {:?}", password);
-  println!("Password 2 is: {:?}", password2);
+  println!("Password 2 is: {:?}", password2.into_iter().collect::<String>());
 }

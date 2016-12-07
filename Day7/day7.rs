@@ -45,12 +45,10 @@ fn main() {
 
     while s.len() > 0 {
       let supernet_offset = s.find('[').unwrap_or(s.len());
-      let part_str: String = s.drain(..supernet_offset).collect();
-      supernet_bits.push_str(&part_str);
+      supernet_bits.push_str(&s.drain(..supernet_offset).collect::<String>());
 
       let hypernet_offset = s.find(']').unwrap_or(s.len());
-      let part_str: String =  s.drain(..hypernet_offset).collect();
-      hypernet_bits.push_str(&part_str);
+      hypernet_bits.push_str(&s.drain(..hypernet_offset).collect::<String>());
     }
 
     if get_aba_or_abba(&supernet_bits, true).len() != 0 && get_aba_or_abba(&hypernet_bits, true).len() == 0{
