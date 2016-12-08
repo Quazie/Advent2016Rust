@@ -51,7 +51,8 @@ fn main() {
       hypernet_bits.extend(s.drain(..hypernet_offset));
     }
 
-    if get_aba_or_abba(&supernet_bits, true).len() != 0 && get_aba_or_abba(&hypernet_bits, true).len() == 0{
+    if get_aba_or_abba(&supernet_bits, true).len() != 0 &&
+       get_aba_or_abba(&hypernet_bits, true).len() == 0 {
       tls_count += 1;
     }
 
