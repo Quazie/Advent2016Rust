@@ -20,7 +20,7 @@ fn print_board(board: &Vec<Vec<bool>>) {
 
     println!("{}", line);
   }
-  println!("{} pixels lit:", count);
+  println!("\n{} pixels lit", count);
 }
 
 fn add_rect(board: &mut Vec<Vec<bool>>, x: usize, y: usize)
@@ -70,7 +70,8 @@ fn main() {
       let cross_pos = last_str.find("x").unwrap();
       last_str.remove(cross_pos);
       let (x, y) = last_str.split_at(cross_pos);
-      add_rect(&mut board, x.to_string().parse::<usize>().unwrap(), y.to_string().parse::<usize>().unwrap())
+      add_rect(&mut board, x.parse().unwrap(), y.parse().unwrap())
+
     } else if line.contains("column") {
       let (_, last) = l.split_at(16);
       let mut last_str = last.to_string();
@@ -81,8 +82,8 @@ fn main() {
       }
       let (x, times) = last_str.split_at(by_pos);
 
-      for _ in 0..times.to_string().parse::<usize>().unwrap() {
-        rotate_column(&mut board, x.to_string().parse::<usize>().unwrap())
+      for _ in 0..times.parse().unwrap() {
+        rotate_column(&mut board, x.parse().unwrap())
       }
 
     } else if line.contains("row") {
@@ -95,8 +96,8 @@ fn main() {
       }
       let (y, times) = last_str.split_at(by_pos);
 
-      for _ in 0..times.to_string().parse::<usize>().unwrap() {
-        rotate_row(&mut board, y.to_string().parse::<usize>().unwrap())
+      for _ in 0..times.parse().unwrap() {
+        rotate_row(&mut board, y.parse().unwrap())
       }
 
     }
